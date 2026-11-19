@@ -192,11 +192,6 @@ body::after {
 .pill:hover::after, .pill:focus-visible::after { opacity: 1; transition: opacity 1.35s cubic-bezier(0.5,0,0.2,1); }
 .pill.green { --c: 80,184,96; --b: #3a9a4a; --g: 1.87; }
 .pill.blue  { --c: 80,128,192; --b: #3a6aaa; --g: 3.3; }
-.pill-bar {
-  position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: inherit; z-index: -1; pointer-events: none;
-  background: rgba(80,184,96,0.28); transition: width 0.25s ease;
-}
-.pill[aria-busy="true"] { pointer-events: none; }
 
 /* ===== Hero ===== */
 .hero {
@@ -312,8 +307,9 @@ body::after {
   color: #fff; text-transform: lowercase;
 }
 .section-note { font-size: 14px; color: var(--dim); margin-top: 10px; }
-.dl-status { font-size: 13px; color: #c33a3a; margin: -18px 0 22px; min-height: 0; }
-.dl-status:empty { display: none; }
+.master-link { text-align: center; margin-bottom: 52px; }
+.master-link p { font-size: 13px; color: var(--dim); margin-bottom: 8px; }
+.master-link .link { display: inline-block; max-width: 100%; font-size: 14px; overflow-wrap: anywhere; }
 
 /* Galleries */
 .gallery { list-style: none; display: grid; gap: 22px 16px; }
@@ -515,14 +511,17 @@ body::after {
 
     <!-- GAME SCREENSHOTS -->
     <section class="kit-section" id="screenshots" aria-labelledby="h-shots">
+      <div class="master-link">
+        <p>master link</p>
+        <a class="link" href="https://drive.google.com/drive/u/1/folders/129Lg16BksVjWVjF34AxpQjIBokp8S6SZ" target="_blank" rel="noopener noreferrer">https://drive.google.com/drive/u/1/folders/129Lg16BksVjWVjF34AxpQjIBokp8S6SZ</a>
+      </div>
       <div class="section-head">
         <div>
           <h2 id="h-shots">game screenshots</h2>
           <p class="section-note">16 images</p>
         </div>
-        <button class="pill green" type="button" data-download="#galleryShots" data-zip="hamachi-game-screenshots"><span class="pill-bar" aria-hidden="true"></span><span class="pill-label">download all screenshots</span></button>
+        <a class="pill green" href="https://gavinoriley.github.io/assets/Hama_Screenshots.zip" download>download all screenshots</a>
       </div>
-      <p class="dl-status" role="status" aria-live="polite"></p>
       <ul class="gallery gallery-shots" id="galleryShots">
         <li><button class="tile" type="button"><span class="tile-frame"><img src="https://gavinoriley.github.io/assets/keyScreenshot0.png" alt="Hamachi the Psychotic Killer screenshot 1" loading="lazy" decoding="async" draggable="false"></span><span class="tile-cap"><span class="tile-name">keyScreenshot0.png</span><span class="tile-dim"></span></span></button></li>
         <li><button class="tile" type="button"><span class="tile-frame"><img src="https://gavinoriley.github.io/assets/keyScreenshot1.png" alt="Hamachi the Psychotic Killer screenshot 2" loading="lazy" decoding="async" draggable="false"></span><span class="tile-cap"><span class="tile-name">keyScreenshot1.png</span><span class="tile-dim"></span></span></button></li>
@@ -550,9 +549,8 @@ body::after {
           <h2 id="h-art">key art</h2>
           <p class="section-note">6 images</p>
         </div>
-        <button class="pill green" type="button" data-download="#galleryArt" data-zip="hamachi-key-art"><span class="pill-bar" aria-hidden="true"></span><span class="pill-label">download all key art</span></button>
+        <a class="pill green" href="https://gavinoriley.github.io/assets/Hama_KeyArt.zip" download>download all key art</a>
       </div>
-      <p class="dl-status" role="status" aria-live="polite"></p>
       <ul class="gallery gallery-art" id="galleryArt" data-art>
         <li><button class="tile" type="button"><span class="tile-frame"><img src="https://gavinoriley.github.io/assets/keyGameLogo.png" alt="Hamachi the Psychotic Killer game logo" loading="lazy" decoding="async" draggable="false"></span><span class="tile-cap"><span class="tile-name">keyGameLogo.png</span><span class="tile-dim"></span></span></button></li>
         <li><button class="tile" type="button"><span class="tile-frame"><img src="https://gavinoriley.github.io/assets/keyHamachiLogo.png" alt="Hamachi logo" loading="lazy" decoding="async" draggable="false"></span><span class="tile-cap"><span class="tile-name">keyHamachiLogo.png</span><span class="tile-dim"></span></span></button></li>
@@ -670,13 +668,6 @@ body::after {
 (function () {
   'use strict';
 
-  /* ------------------------------------------------------------------
-     Settings
-     DOWNLOAD_MODE 'zip'   : "download all" saves one .zip containing the files
-                   'files' : "download all" saves each file separately
-     ------------------------------------------------------------------ */
-  var DOWNLOAD_MODE = 'zip';
-
   /* ---------- Always open at the top of the page ---------- */
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   var userScrolled = false;
@@ -712,6 +703,7 @@ body::after {
     document.documentElement.style.overflow = open ? 'hidden' : '';
   }
   toggle.addEventListener('click', function () { setMenu(!overlay.classList.contains('open')); });
+  overlay.addEventListener('click', function (e) { if (!e.target.closest('a')) setMenu(false); });
   $$('[data-nav]').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
 
   /* ---------- Image dimensions under each thumbnail ---------- */
@@ -737,101 +729,6 @@ body::after {
       return r.arrayBuffer();
     }).then(function (b) { return new Uint8Array(b); });
   }
-  var sleep = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
-
-  /* Minimal .zip writer (stored, no compression: PNG and JPEG are already compressed) */
-  var CRC = (function () {
-    var t = new Uint32Array(256);
-    for (var n = 0; n < 256; n++) { var c = n; for (var k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; }
-    return t;
-  })();
-  function crc32(u8) {
-    var c = 0xFFFFFFFF;
-    for (var i = 0; i < u8.length; i++) c = CRC[(c ^ u8[i]) & 255] ^ (c >>> 8);
-    return (c ^ 0xFFFFFFFF) >>> 0;
-  }
-  function buildZip(files) {
-    var enc = new TextEncoder(), d = new Date();
-    var time = (d.getHours() << 11) | (d.getMinutes() << 5) | (d.getSeconds() >> 1);
-    var date = ((d.getFullYear() - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate();
-    var parts = [], central = [], offset = 0;
-    files.forEach(function (f) {
-      var name = enc.encode(f.name), crc = crc32(f.data), size = f.data.length;
-      var lh = new DataView(new ArrayBuffer(30));
-      lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(6, 0x0800, true); lh.setUint16(8, 0, true);
-      lh.setUint16(10, time, true); lh.setUint16(12, date, true); lh.setUint32(14, crc, true);
-      lh.setUint32(18, size, true); lh.setUint32(22, size, true); lh.setUint16(26, name.length, true); lh.setUint16(28, 0, true);
-      parts.push(new Uint8Array(lh.buffer), name, f.data);
-      var ch = new DataView(new ArrayBuffer(46));
-      ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint16(8, 0x0800, true); ch.setUint16(10, 0, true);
-      ch.setUint16(12, time, true); ch.setUint16(14, date, true); ch.setUint32(16, crc, true);
-      ch.setUint32(20, size, true); ch.setUint32(24, size, true); ch.setUint16(28, name.length, true);
-      ch.setUint32(42, offset, true);
-      central.push(new Uint8Array(ch.buffer), name);
-      offset += 30 + name.length + size;
-    });
-    var cdSize = central.reduce(function (n, p) { return n + p.length; }, 0);
-    var end = new DataView(new ArrayBuffer(22));
-    end.setUint32(0, 0x06054b50, true); end.setUint16(8, files.length, true); end.setUint16(10, files.length, true);
-    end.setUint32(12, cdSize, true); end.setUint32(16, offset, true);
-    return new Blob(parts.concat(central, [new Uint8Array(end.buffer)]), { type: 'application/zip' });
-  }
-
-  /* ---------- "Download all" buttons ---------- */
-  $$('[data-download]').forEach(function (btn) {
-    var label = $('.pill-label', btn), barEl = $('.pill-bar', btn);
-    var status = btn.closest('.kit-section').querySelector('.dl-status');
-    var idle = label.textContent;
-
-    function progress(done, total, word) {
-      barEl.style.width = (total ? (done / total) * 100 : 0) + '%';
-      label.textContent = word + ' ' + done + ' of ' + total;
-    }
-    function reset(delay) {
-      setTimeout(function () {
-        btn.removeAttribute('aria-busy'); label.textContent = idle; barEl.style.width = '0';
-      }, delay);
-    }
-
-    btn.addEventListener('click', function () {
-      if (btn.getAttribute('aria-busy') === 'true') return;
-      var urls = $$('img', $(btn.dataset.download)).map(function (i) { return i.src; });
-      var folder = btn.dataset.zip;
-      btn.setAttribute('aria-busy', 'true'); status.textContent = '';
-      var done = 0, total = urls.length;
-      progress(0, total, DOWNLOAD_MODE === 'zip' ? 'preparing' : 'downloading');
-
-      var job;
-      if (DOWNLOAD_MODE === 'files') {
-        job = urls.reduce(function (p, url) {
-          return p.then(function () { return fetchBytes(url); }).then(function (bytes) {
-            saveBlob(new Blob([bytes]), fileName(url)); progress(++done, total, 'downloading'); return sleep(350);
-          });
-        }, Promise.resolve());
-      } else {
-        var out = new Array(total);
-        var next = 0;
-        var worker = function () {
-          if (next >= total) return Promise.resolve();
-          var i = next++;
-          return fetchBytes(urls[i]).then(function (bytes) {
-            out[i] = { name: folder + '/' + fileName(urls[i]), data: bytes };
-            progress(++done, total, 'preparing');
-          }).then(worker);
-        };
-        job = Promise.all([worker(), worker(), worker(), worker()]).then(function () {
-          saveBlob(buildZip(out), folder + '.zip');
-        });
-      }
-
-      job.then(function () {
-        barEl.style.width = '100%'; label.textContent = 'download started'; reset(2800);
-      }).catch(function (err) {
-        status.textContent = 'The download failed (' + (err && err.message ? err.message : 'network error') + '). Check your connection and try again, or open an image and use its download button.';
-        reset(0);
-      });
-    });
-  });
 
   /* ---------- Image viewer ---------- */
   var lb = $('#lightbox'), lbImg = $('#lbImg'), lbName = $('#lbName'), lbDim = $('#lbDim'), lbCount = $('#lbCount');
