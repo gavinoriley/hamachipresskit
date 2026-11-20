@@ -29,14 +29,9 @@
 <link rel="preconnect" href="https://www.youtube-nocookie.com">
 <link rel="preconnect" href="https://store.steampowered.com">
 <link rel="preconnect" href="https://gavinoriley.github.io" crossorigin>
-<link rel="stylesheet" href="https://unpkg.com/lenis@1.3.23/dist/lenis.css">
 
 <style>
-html { scrollbar-gutter: stable; scroll-behavior: smooth; }
-/* Lenis Recommended Styles */
-html.lenis { height: auto; }
-.lenis.lenis-smooth { scroll-behavior: auto !important; }
-.lenis.lenis-stopped { overflow: hidden; }
+html { scrollbar-gutter: stable; }
 @font-face {
 font-family: 'FSEX300';
 src: url('/assets/FSEX300.woff2') format('woff2'),
@@ -487,7 +482,7 @@ body::before, body::after, .hero-hint i { animation: none; }
 </div>
 </div>
 
-<nav class="nav-overlay" id="mainNavOverlay" aria-label="Press kit" data-lenis-prevent>
+<nav class="nav-overlay" id="mainNavOverlay" aria-label="Press kit">
 <div class="nav-links-wrapper">
 <a href="https://hamachithepsychotickiller.com/" class="menu-link">home</a>
 <a href="#screenshots" class="menu-link" data-nav>screenshots</a>
@@ -659,7 +654,7 @@ body::before, body::after, .hero-hint i { animation: none; }
 </main>
 
 
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" aria-hidden="true" data-lenis-prevent>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" aria-hidden="true">
 <div class="lb-top"><span id="lbCount"></span><button class="lb-close" id="lbClose" type="button" aria-label="Close viewer">×</button></div>
 <div class="lb-stage">
 <button class="lb-nav lb-prev" id="lbPrev" type="button" aria-label="Previous image"></button>
@@ -672,7 +667,6 @@ body::before, body::after, .hero-hint i { animation: none; }
 </div>
 </div>
 
-<script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
 <script>
 (function () {
 'use strict';
@@ -690,39 +684,6 @@ var $ = function (s, r) { return (r || document).querySelector(s); };
 var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Smooth scrolling (Lenis, same settings as the home, about and publishing pages).
-// Skipped for reduced-motion users and if the library fails to load; the CSS fallback then applies.
-var lenis = null;
-if (typeof Lenis === 'function' && !reduceMotion) {
-lenis = new Lenis({
-lerp: 0.08,
-wheelMultiplier: 1.0,
-touchMultiplier: 1.5,
-smoothWheel: true,
-smoothTouch: false,
-allowNestedScroll: true,
-stopInertiaOnNavigate: true
-});
-function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-requestAnimationFrame(raf);
-}
-function scrollLock(locked) { if (lenis) { locked ? lenis.stop() : lenis.start(); } }
-
-// In-page links: glide to the section, keeping the 46px offset under the fixed top bar.
-if (lenis) {
-document.addEventListener('click', function (e) {
-var a = e.target.closest && e.target.closest('a[href^="#"]');
-if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-var id = decodeURIComponent(a.getAttribute('href').slice(1));
-var target = id && document.getElementById(id);
-if (!target) return;
-e.preventDefault();
-lenis.start();
-var margin = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
-lenis.scrollTo(target.getBoundingClientRect().top + window.pageYOffset - margin, { force: true });
-if (history.pushState) history.pushState(null, '', '#' + id);
-});
-}
 
 
 var hero = $('.hero');
@@ -744,7 +705,6 @@ toggle.classList.toggle('open', open);
 bar.classList.toggle('menu-open', open);
 toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
 document.documentElement.style.overflow = open ? 'hidden' : '';
-scrollLock(open);
 }
 toggle.addEventListener('click', function () { setMenu(!overlay.classList.contains('open')); });
 overlay.addEventListener('click', function (e) { if (!e.target.closest('a')) setMenu(false); });
@@ -799,13 +759,11 @@ opener = tile;
 show(set.map(function (s) { return s.tile; }).indexOf(tile));
 lb.classList.add('open'); lb.setAttribute('aria-hidden', 'false');
 document.documentElement.style.overflow = 'hidden';
-scrollLock(true);
 lbClose.focus();
 }
 function closeViewer() {
 lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true');
 document.documentElement.style.overflow = '';
-scrollLock(false);
 if (opener) opener.focus();
 }
 $$('.tile').forEach(function (t) { t.addEventListener('click', function () { openViewer(t); }); });
