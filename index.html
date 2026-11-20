@@ -6,10 +6,10 @@
 <meta name="theme-color" content="#070707">
 <meta name="color-scheme" content="dark">
 <title>Press Kit | HAMACHI THE PSYCHOTIC KILLER</title>
-<meta name="description" content="Official press kit for HAMACHI THE PSYCHOTIC KILLER, a 2D horror platformer game where you play as the bad guy. Download key art and screenshots, watch the video, and find the factsheet and press contact.">
+<meta name="description" content="Official press kit for HAMACHI THE PSYCHOTIC KILLER, a 2D horror platformer game where you play as the bad guy.">
 <meta name="keywords" content="Hamachi the Psychotic Killer, press kit, presskit, video game, indie game, action game, 2d game, platformer">
 <meta property="og:title" content="Press Kit | HAMACHI THE PSYCHOTIC KILLER">
-<meta property="og:description" content="Official press kit for HAMACHI THE PSYCHOTIC KILLER, a 2D horror platformer game where you play as the bad guy. Download key art and screenshots, watch the video, and find the factsheet and press contact.">
+<meta property="og:description" content="Official press kit for HAMACHI THE PSYCHOTIC KILLER, a 2D horror platformer game where you play as the bad guy.">
 <meta property="og:image" content="https://gavinoriley.github.io/assets/ScreenshotHomePage.png">
 <meta property="og:url" content="https://hamachithepsychotickiller.com/presskit/">
 <meta property="og:type" content="website">
@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Press Kit | HAMACHI THE PSYCHOTIC KILLER">
-<meta name="twitter:description" content="Official press kit for HAMACHI THE PSYCHOTIC KILLER, a 2D horror platformer game where you play as the bad guy. Download key art and screenshots, watch the video, and find the factsheet and press contact.">
+<meta name="twitter:description" content="Official press kit for HAMACHI THE PSYCHOTIC KILLER, a 2D horror platformer game where you play as the bad guy.">
 <meta name="twitter:image" content="https://gavinoriley.github.io/assets/ScreenshotHomePage.png">
 <meta name="twitter:site" content="@imgavinoriley">
 <meta name="robots" content="index, follow">
@@ -65,7 +65,7 @@ body { position: relative; min-height: 100vh; }
   overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }
 
-/* Drifting dot field, same as the home page */
+
 body::before, body::after { content: ''; position: fixed; pointer-events: none; z-index: 0; will-change: transform; }
 body::before {
   inset: -52px 0 0 -52px;
@@ -82,7 +82,7 @@ body::after {
 @keyframes drift1 { to { transform: translate3d(52px, 52px, 0); } }
 @keyframes drift2 { to { transform: translate3d(-78px, 78px, 0); } }
 
-/* ===== Top bar and menu (matches home page) ===== */
+
 .top-nav-bar {
   position: fixed; top: 0; left: 0; right: 0; height: 46px; z-index: 200;
   display: flex; align-items: center; justify-content: space-between; padding: 0 22px;
@@ -163,7 +163,7 @@ body::after {
 .nav-overlay a:nth-child(4n+3):hover, .nav-overlay a:nth-child(4n+3):focus-visible { color: #3a6aaa; }
 .nav-overlay a:nth-child(4n):hover, .nav-overlay a:nth-child(4n):focus-visible { color: #c9a83a; }
 
-/* ===== Pill buttons (matches home page hero buttons) ===== */
+
 .pill {
   position: relative; display: inline-flex; align-items: center; justify-content: center;
   color: #ddd; text-decoration: none; font-size: 14px; letter-spacing: 0.6px;
@@ -193,7 +193,7 @@ body::after {
 .pill.green { --c: 80,184,96; --b: #3a9a4a; --g: 1.87; }
 .pill.blue  { --c: 80,128,192; --b: #3a6aaa; --g: 3.3; }
 
-/* ===== Hero ===== */
+
 .hero {
   --orb: min(46vw, 84vh);
   --cx: 28%;
@@ -217,7 +217,7 @@ body::after {
   user-select: none; -webkit-user-drag: none;
 }
 
-/* The black fade that sits on top of both images and leaves the round window */
+
 @property --r { syntax: '<length>'; inherits: true; initial-value: 0px; }
 .hero-fade {
   --r: calc(var(--orb) / 2);
@@ -256,7 +256,7 @@ body::after {
   60% { transform: translateY(3px) rotate(45deg); }
 }
 
-/* Intro sequence. It starts when the hero images are ready (.is-live). */
+
 .hero:not(.is-live) .reveal, .hero:not(.is-live) .orb-hama img, .hero:not(.is-live) .orb-bg { opacity: 0; }
 .hero.is-live .orb-bg   { animation: fadeIn 1.2s ease-out 0.1s backwards; }
 .hero.is-live .hero-fade { animation: orbOpen 1.4s cubic-bezier(0.22, 0.8, 0.2, 1) 0.1s backwards; }
@@ -294,7 +294,7 @@ body::after {
   .hero-hint { bottom: 14px; font-size: 11px; }
 }
 
-/* ===== Page body ===== */
+
 #wrapper { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; padding: 0 28px 90px; }
 .kit-section { padding-top: 84px; scroll-margin-top: 46px; }
 .kit-section + .kit-section { margin-top: 84px; border-top: 1px solid var(--line); }
@@ -311,7 +311,7 @@ body::after {
 .master-link p { font-size: 13px; color: var(--dim); margin-bottom: 8px; }
 .master-link .link { display: inline-block; max-width: 100%; font-size: 14px; overflow-wrap: anywhere; }
 
-/* Galleries */
+
 .gallery { list-style: none; display: grid; gap: 22px 16px; }
 .gallery-shots { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
 .gallery-art { grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); }
@@ -338,7 +338,7 @@ body::after {
 .tile-dim { flex: none; color: #666; }
 .tile.is-missing .tile-dim { color: #c33a3a; }
 
-/* Media */
+
 .media-grid { display: grid; grid-template-columns: minmax(0, 640px) minmax(0, 1fr); gap: 28px clamp(32px, 6vw, 80px); align-items: start; }
 .video-frame { position: relative; aspect-ratio: 16 / 9; background: #000; border: 1px solid #1f1f1f; overflow: hidden; }
 .video-thumb { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
@@ -346,7 +346,7 @@ body::after {
 .video-frame iframe { display: block; width: 100%; height: 100%; border: 0; }
 .link-list { list-style: none; display: grid; gap: 14px; font-size: 16px; }
 
-/* Misc. info */
+
 .misc-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px clamp(40px, 7vw, 96px); align-items: start; }
 .misc-col h3 { font-size: 20px; font-weight: normal; letter-spacing: 2px; color: #fff; text-transform: lowercase; margin-bottom: 22px; }
 .facts { display: block; }
@@ -354,6 +354,7 @@ body::after {
 .fact:first-child { padding-top: 0; }
 .fact dt { font-size: 13px; color: var(--dim); text-transform: lowercase; letter-spacing: 0.5px; margin-bottom: 6px; }
 .fact dd { font-size: 16px; color: #ddd; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; overflow-wrap: anywhere; }
+.fact-desc { flex: 0 0 100%; margin: 2px 0 0; font-size: 15px; line-height: 1.6; color: #aaa; }
 .about { max-width: 640px; font-size: 16px; line-height: 1.7; color: #bbb; }
 .about p { margin-bottom: 16px; }
 .about .subhead { font-size: 14px; color: #777; margin-top: 24px; }
@@ -380,7 +381,7 @@ body::after {
 .copy-btn:hover, .copy-btn:focus-visible, .copy-btn.copied { border-color: #888; color: #fff; }
 .copy-btn:focus-visible { outline: 1px solid rgba(255,255,255,0.6); outline-offset: 3px; }
 
-/* Footer, same as the home page */
+
 #footer-contents {
   margin: 90px auto 0; padding: 28px 28px 0; border-top: 1px solid var(--line);
   font-size: 12px; color: #444; letter-spacing: 0.5px; text-align: center; max-width: 960px;
@@ -389,7 +390,7 @@ body::after {
 .footer-links a { color: #666; text-decoration: none; font-size: 13px; transition: color 0.2s; }
 .footer-links a:hover, .footer-links a:focus-visible { color: #aaa; }
 
-/* ===== Image viewer ===== */
+
 .lightbox {
   position: fixed; inset: 0; z-index: 3000; background: rgba(0,0,0,0.93);
   display: grid; grid-template-rows: auto minmax(0, 1fr) auto; padding: 14px 18px 18px;
@@ -426,7 +427,7 @@ body::after {
   .lb-stage { gap: 4px; }
 }
 
-/* ===== Responsive ===== */
+
 @media (max-width: 860px) {
   .media-grid, .misc-grid { grid-template-columns: minmax(0, 1fr); }
 }
@@ -466,12 +467,12 @@ body::after {
 </head>
 <body>
 
-<!-- TOP BAR -->
+
 <div class="top-nav-bar" id="topNavBar">
   <button class="menu-toggle" id="menuToggleBtn" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNavOverlay"><span></span><span></span><span></span></button>
   <a class="nav-center-logo" href="https://hamachithepsychotickiller.com/" aria-label="Hamachi the Psychotic Killer, home"><img src="https://gavinoriley.github.io/assets/hamanavibar.png" alt="" width="1010" height="233" decoding="async"></a>
   <div class="hero-socials">
-    <a href="https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/#game_area_purchase" target="_blank" rel="noopener noreferrer" aria-label="Steam"><img src="https://gavinoriley.github.io/assets/whitesteam.png" alt="Steam"></a>
+    <a href="https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/" target="_blank" rel="noopener noreferrer" aria-label="Steam"><img src="https://gavinoriley.github.io/assets/whitesteam.png" alt="Steam"></a>
     <a href="https://www.tiktok.com/@hamachi_psychotickiller" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><img src="https://gavinoriley.github.io/assets/whitetiktok.png" alt="TikTok"></a>
     <div class="x-hover-wrapper" style="position:relative;">
       <a href="https://x.com/imgavinoriley" target="_blank" rel="noopener noreferrer" aria-label="X"><img src="https://gavinoriley.github.io/assets/whitex.png" alt="X"></a>
@@ -488,12 +489,12 @@ body::after {
     <a href="#media" class="menu-link" data-nav>media</a>
     <a href="#factsheet" class="menu-link" data-nav>factsheet</a>
     <a href="#about-game" class="menu-link" data-nav>about game</a>
-    <a href="https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/#game_area_purchase" target="_blank" rel="noopener noreferrer" class="menu-link">buy game</a>
+    <a href="https://store.steampowered.com/app/3355690/Hamachi_the_Psychotic_Killer/" target="_blank" rel="noopener noreferrer" class="menu-link">steam page</a>
   </div>
 </nav>
 
 <main>
-  <!-- INTRO -->
+  
   <section class="hero" id="top" aria-labelledby="heroTitle">
     <img class="orb-bg" src="https://gavinoriley.github.io/assets/keyNoHamachi.jpeg" alt="" width="1920" height="1080" fetchpriority="high" decoding="async" draggable="false">
     <div class="orb-hama" aria-hidden="true"><img src="https://gavinoriley.github.io/assets/keyHamachi.png" alt="" width="465" height="695" fetchpriority="high" decoding="async" draggable="false"></div>
@@ -509,7 +510,7 @@ body::after {
 
   <div id="wrapper">
 
-    <!-- GAME SCREENSHOTS -->
+    
     <section class="kit-section" id="screenshots" aria-labelledby="h-shots">
       <div class="master-link">
         <p>master link</p>
@@ -542,7 +543,7 @@ body::after {
       </ul>
     </section>
 
-    <!-- KEY ART -->
+
     <section class="kit-section" id="key-art" aria-labelledby="h-art">
       <div class="section-head">
         <div>
@@ -561,7 +562,7 @@ body::after {
       </ul>
     </section>
 
-    <!-- MEDIA -->
+  
     <section class="kit-section" id="media" aria-labelledby="h-media">
       <div class="section-head">
         <h2 id="h-media">media</h2>
@@ -574,11 +575,12 @@ body::after {
         <ul class="link-list">
           <li><a class="link" href="https://www.youtube.com/watch?v=VbFZFto8Naw" target="_blank" rel="noopener noreferrer">watch on youtube</a></li>
           <li><a class="link" href="https://www.youtube.com/@hamachithepsychotickiller" target="_blank" rel="noopener noreferrer">youtube channel</a></li>
+          <li><a class="link" href="https://drive.google.com/drive/u/1/folders/129Lg16BksVjWVjF34AxpQjIBokp8S6SZ" target="_blank" rel="noopener noreferrer">download trailer</a></li>
         </ul>
       </div>
     </section>
 
-    <!-- MISC. INFO -->
+    
     <section class="kit-section" id="misc-info" aria-labelledby="h-misc">
       <div class="section-head">
         <h2 id="h-misc">misc. info</h2>
@@ -590,7 +592,7 @@ body::after {
           <dl class="facts">
             <div class="fact">
               <dt>Developer</dt>
-              <dd>gavinoriley</dd>
+              <dd>gavinoriley<p class="fact-desc">gavinoriley is an independent game developer based in California. Self-taught in GameMaker, he developed Hamachi the Psychotic Killer over the course of several years, making it his debut commercial game.</p></dd>
             </div>
             <div class="fact">
               <dt>Press, Business, and Support contacts</dt>
@@ -650,7 +652,7 @@ body::after {
   </div>
 </main>
 
-<!-- IMAGE VIEWER -->
+
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" aria-hidden="true">
   <div class="lb-top"><span id="lbCount"></span><button class="lb-close" id="lbClose" type="button" aria-label="Close viewer">×</button></div>
   <div class="lb-stage">
@@ -668,7 +670,7 @@ body::after {
 (function () {
   'use strict';
 
-  /* ---------- Always open at the top of the page ---------- */
+ 
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   var userScrolled = false;
   ['wheel', 'touchstart', 'mousedown', 'keydown'].forEach(function (ev) {
@@ -681,7 +683,7 @@ body::after {
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- Intro: start the sequence once the hero images are ready ---------- */
+ 
   var hero = $('.hero');
   var heroImgs = $$('.hero img');
   function decoded(img) {
@@ -693,7 +695,7 @@ body::after {
   Promise.race([Promise.all([ready, minWait]), maxWait]).then(function () { hero.classList.add('is-live'); });
   heroImgs.forEach(function (img) { img.addEventListener('error', function () { img.style.visibility = 'hidden'; }); });
 
-  /* ---------- Menu ---------- */
+ 
   var toggle = $('#menuToggleBtn'), overlay = $('#mainNavOverlay'), bar = $('#topNavBar');
   function setMenu(open) {
     overlay.classList.toggle('open', open);
@@ -706,7 +708,7 @@ body::after {
   overlay.addEventListener('click', function (e) { if (!e.target.closest('a')) setMenu(false); });
   $$('[data-nav]').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
 
-  /* ---------- Image dimensions under each thumbnail ---------- */
+  
   $$('.tile').forEach(function (tile) {
     var img = $('img', tile), dim = $('.tile-dim', tile);
     function ok() { dim.textContent = img.naturalWidth + ' × ' + img.naturalHeight; }
@@ -715,7 +717,7 @@ body::after {
     else { img.addEventListener('load', ok, { once: true }); img.addEventListener('error', fail, { once: true }); }
   });
 
-  /* ---------- Saving files ---------- */
+ 
   function fileName(url) { return decodeURIComponent(url.split('?')[0].split('/').pop()); }
   function saveBlob(blob, name) {
     var u = URL.createObjectURL(blob), a = document.createElement('a');
@@ -730,7 +732,7 @@ body::after {
     }).then(function (b) { return new Uint8Array(b); });
   }
 
-  /* ---------- Image viewer ---------- */
+  
   var lb = $('#lightbox'), lbImg = $('#lbImg'), lbName = $('#lbName'), lbDim = $('#lbDim'), lbCount = $('#lbCount');
   var lbDownload = $('#lbDownload'), lbClose = $('#lbClose'), lbPrev = $('#lbPrev'), lbNext = $('#lbNext');
   var set = [], index = 0, opener = null;
@@ -791,7 +793,7 @@ body::after {
     }
   });
 
-  /* ---------- Video: load the player only when someone presses play ---------- */
+
   var vf = $('#videoFrame'), thumb = $('.video-thumb', vf);
   thumb.addEventListener('error', function () { thumb.style.display = 'none'; });
   vf.addEventListener('click', function () {
@@ -805,7 +807,7 @@ body::after {
     vf.appendChild(f);
   }, { once: true });
 
-  /* ---------- Copy email ---------- */
+ 
   var copyBtn = $('#copyEmailBtn');
   copyBtn.addEventListener('click', function () {
     var email = copyBtn.dataset.email;
